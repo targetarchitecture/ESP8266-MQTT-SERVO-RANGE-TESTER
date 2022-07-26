@@ -15,9 +15,17 @@ EspMQTTClient client(
     1883             // The MQTT port, default to 1883. this line can be omitted
 );
 
+//i2c pins
+#define SDA 27
+#define SCL 32
+
 void setup()
 {
+  
+  Wire.begin(SDA, SCL); //I2C bus
+
   Serial.begin(115200);
+
 
   // Optional functionalities of EspMQTTClient
   client.enableDebuggingMessages(); // Enable debugging messages sent to serial output
@@ -25,7 +33,6 @@ void setup()
   // client.enableOTA(); // Enable OTA (Over The Air) updates. Password defaults to MQTTPassword. Port is the default OTA port. Can be overridden with enableOTA("password", port).
   // client.enableLastWillMessage("TestClient/lastwill", "I am going offline");  // You can activate the retain flag by setting the third parameter to true
 
-  PCA9685.begin();
   PCA9685.reset();
   PCA9685.setOscillatorFrequency(27000000);
   PCA9685.setPWMFreq(50); // Analog servos run at ~50 Hz updates

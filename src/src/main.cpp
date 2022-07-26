@@ -45,9 +45,17 @@ void onConnectionEstablished()
                    {
   Serial.println("(From wildcard) topic: " + topic + ", payload: " + payload);
 
-  auto pin = atoi(topic.c_str());
+  String temp = topic;
+  temp.replace("servotest/","");
+
+  auto pin = atoi(temp.c_str());
   auto pwm = atoi(payload.c_str());
 
+  Serial.print("servo: ");
+  Serial.print(pin);
+  Serial.print(" PWM: ");
+  Serial.println(pwm);
+  
   // configure the PWM duty cycle
   PCA9685.setPWM(pin, 0, pwm); 
 });
